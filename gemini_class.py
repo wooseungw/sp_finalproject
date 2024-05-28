@@ -26,3 +26,5 @@ if __name__ == "__main__":
     text = "인생의 의미를 이 이미지들을 참고해서 말하자면 무엇인가요?"  # 텍스트 프롬프트를 설정합니다.
     img = ['food.png']  # 이미지 프롬프트를 설정합니다.
     print(model.generate(text_prompt=text, img_prompt=img))  # 생성된 모델을 사용하여 텍스트와 이미지를 기반으로 생성된 응답을 출력합니다.
+
+print(123)
