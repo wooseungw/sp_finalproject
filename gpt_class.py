@@ -52,3 +52,5 @@ if __name__ == "__main__":
     # img_prompt.append('football.png')
     answer = gpt.generate(text_prompt="이 요리를 만들고싶어, 사진을보고 참고해서 요리의 레시피를 출력해줘", img_prompt=img_prompt)
     print(answer)
+
+#안녕하세요
