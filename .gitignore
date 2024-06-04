@@ -1,5 +1,6 @@
+previous/
+current/
 .env
 .DS_Store
 test_data/
-previous/
-current/
+__pycache__/
