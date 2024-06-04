@@ -1,0 +1,46 @@
+{
+    "ICT융합공학부": {
+        "소프트웨어전공": {
+            "교과목해설": "https://sae.kangnam.ac.kr/menu/ef7fb698ee5261e2adee51105ec45485.do",
+            "학습로드맵": "https://sae.kangnam.ac.kr/menu/c26d385c14de8cf9ef7a1b6029562365.do?encMenuSeq=09743d7331b4e7f2988c87e8051a9bc3"
+        },
+        "가상현실전공": {
+            "교과목해설": "https://sae.kangnam.ac.kr/menu/820c7ee00ad48a9167e1fb63ebd25cbb.do",
+            "학습로드맵": "https://sae.kangnam.ac.kr/menu/be48315d20ed9d29bd23f22162980046.do"
+        },
+        "전자공학전공": {
+            "교과목해설": "https://sae.kangnam.ac.kr/menu/43a0855bed87e409997049822d774744.do",
+            "학습로드맵": "https://sae.kangnam.ac.kr/menu/7b05009b188ddf4e378c754e3cdeb63b.do?encMenuSeq=4a8fc6cb8ce479df816ecff5d46c61d3"
+        }
+    },
+    "인공지능융합공학부": {
+        "인공지능전공": {
+            "교과목해설": "https://ace.kangnam.ac.kr/menu/e185812b4c8ebfe6d90a1e3f35587ef6.do"
+        },
+        "산업공학전공": {
+            "교과목해설": "https://ace.kangnam.ac.kr/menu/0175018509b66b6519d2cfff36bb16f6.do",
+            "학습로드맵": "https://ace.kangnam.ac.kr/menu/bb03a6bb82de108bbd575d0b6bf2d4a3.do?encMenuSeq=b84918f80de84d6c742f3186a6539fab"
+        },
+        "데이터사이언스전공": {
+            "교과목해설": "https://ace.kangnam.ac.kr/menu/cc456b87e7402865e2a961c10f8bcf5e.do",
+            "학습로드맵": "https://ace.kangnam.ac.kr/menu/a4558415a13142426a7576438ba62664.do?encMenuSeq=5f5be509b40da4c114dbdd6f33bbe907"
+        }
+    },
+    "부동산건설학부": {
+        "부동산학전공": {
+            "교과목해설": "https://knureal.kangnam.ac.kr/menu/5773fae37324f164f38151718e8bd541.do",
+            "학습로드맵": "https://knureal.kangnam.ac.kr/menu/849067d25a0e12df4c23029f579a2178.do"
+        },
+        "스마트도시공학전공": {
+            "교과목해설": "https://knureal.kangnam.ac.kr/menu/77772f3d5f4ae2e42e0c5124f04d4399.do",
+            "학습로드맵": "https://knureal.kangnam.ac.kr/menu/1344794d3d81e87e30a7fe27eda69553.do"
+        },
+        "건축공학전공": {
+            "교과목해설": "https://knureal.kangnam.ac.kr/menu/039a816fec976532a4b3d7e2a6ba58b3.do",
+            "학습로드맵": "https://knureal.kangnam.ac.kr/menu/e6d68be551d0f9567a2bd2fce2d4b2f6.do"
+        },
+        "부동산건설학부(2022학년도이전)": {
+            "부동산건설학부": "https://knureal.kangnam.ac.kr/menu/47008b3025db56930ea09598b514081f.do"
+        }
+    }
+}
