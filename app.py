@@ -103,7 +103,7 @@ if __name__ == '__main__':
         st.session_state["OPENAI_API"] = st.text_input("Enter API Key", st.session_state["OPENAI_API"], type="password")
         st.session_state["model"] = st.selectbox("Select Model", ["gpt-4o", "gpt-3.5-turbo"])
         
-        t= st.radio("학사지원 서비스를 선택해주세요.", ["수업", "졸업"])
+        st.session_state["service"] = st.radio("학사지원 서비스를 선택해주세요.", ["수업", "졸업"])
     # Chatbot을 생성합니다.
     chatbot = Chatbot(api_key=st.session_state["OPENAI_API"],
                        retriever=st.session_state.retriever,
