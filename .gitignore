@@ -3,8 +3,4 @@ current/
 .env
 .DS_Store
 test_data/
-<<<<<<< branch
 __pycache__/
-=======
-__pycache__/
->>>>>>> main
