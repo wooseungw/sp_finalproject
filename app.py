@@ -62,7 +62,13 @@ if "current" not in st.session_state:
 
 #################################################
 if "prompt" not in st.session_state:
-    st.session_state["prompt"] = ''' '''
+    st.session_state["prompt"] = ''' 
+    수업 프롬프트는 여기에 입력
+    
+    ''' if  st.session_state["service"] == "수업" else '''
+    
+    졸업 프롬프트는 여기에 입력
+    '''
 #################################################
 
 if "retriever" not in st.session_state:
@@ -101,8 +107,9 @@ if __name__ == '__main__':
     with st.sidebar:
         st.title("설정")
         st.session_state["OPENAI_API"] = st.text_input("Enter API Key", st.session_state["OPENAI_API"], type="password")
-        st.session_state["model"] = st.selectbox("Select Model", ["gpt-4o", "gpt-3.5-turbo"])
-        
+        #모델을 선택합니다.
+        st.session_state["model"] = st.radio("모델을 선택해주세요.", ["gpt-4o", "gpt-3.5-turbo"])
+        #라디오 버튼을 사용하여 서비스를 선택합니다.
         st.session_state["service"] = st.radio("학사지원 서비스를 선택해주세요.", ["수업", "졸업"])
     # Chatbot을 생성합니다.
     chatbot = Chatbot(api_key=st.session_state["OPENAI_API"],
