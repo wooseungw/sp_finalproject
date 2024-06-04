@@ -51,6 +51,9 @@ if "chat_history" not in st.session_state:
 if "SYS_PROMPT" not in st.session_state:
     st.session_state["SYS_PROMPT"] = ''' '''
     
+if "sevice" not in st.session_state:
+    st.session_state["service"] = "수업"
+
 if "previous" not in st.session_state:
     st.session_state["previous"] = pdf_load('./previous')
 
@@ -82,10 +85,7 @@ if "retriever" not in st.session_state:
     vectordb = Chroma.from_documents(documents=chunks, embedding=embeddings)
     print("Retriever Done.")
     st.session_state.retriever = vectordb.as_retriever()
-
     
-
-
 # pdf를 사용해서 pdf(논문)을 모두 로드
 
 if __name__ == '__main__':
@@ -103,11 +103,14 @@ if __name__ == '__main__':
         st.session_state["OPENAI_API"] = st.text_input("Enter API Key", st.session_state["OPENAI_API"], type="password")
         st.session_state["model"] = st.selectbox("Select Model", ["gpt-4o", "gpt-3.5-turbo"])
         
+        t= st.radio("학사지원 서비스를 선택해주세요.", ["수업", "졸업"])
     # Chatbot을 생성합니다.
     chatbot = Chatbot(api_key=st.session_state["OPENAI_API"],
                        retriever=st.session_state.retriever,
                        sys_prompt=st.session_state["SYS_PROMPT"],
                        model_name=st.session_state["model"])
+
+
 
     ############################################ 실제 챗봇을 사용하기 위한 Streamlit 코드 ###################################################
     for content in st.session_state.chat_history:
