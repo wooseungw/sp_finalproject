@@ -48,9 +48,6 @@ if "model" not in st.session_state:
 if "chat_history" not in st.session_state:
     st.session_state.chat_history = []
     
-if "SYS_PROMPT" not in st.session_state:
-    st.session_state["SYS_PROMPT"] = ''' '''
-    
 if "sevice" not in st.session_state:
     st.session_state["service"] = "수업"
 
@@ -114,7 +111,7 @@ if __name__ == '__main__':
     # Chatbot을 생성합니다.
     chatbot = Chatbot(api_key=st.session_state["OPENAI_API"],
                        retriever=st.session_state.retriever,
-                       sys_prompt=st.session_state["SYS_PROMPT"],
+                       sys_prompt=st.session_state["prompt"],
                        model_name=st.session_state["model"])
 
 
