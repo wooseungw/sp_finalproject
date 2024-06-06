@@ -35,7 +35,7 @@ def save_uploaded_file(directory, file):
         os.makedirs(directory)
     
     # 2. 디렉토리가 있으니, 파일 저장
-    with open(os.path.join(directory, f"{directory.split("/")[-1]}.pdf"), 'wb') as f:
+    with open(os.path.join(directory, f"{directory.split('/')[-1]}.pdf"), 'wb') as f:
         f.write(file.getbuffer())
     return st.success('파일 업로드 성공!')
 
