@@ -4,3 +4,5 @@ current/
 .DS_Store
 test_data/
 __pycache__/
+web_crawling_links/
+trash_can
