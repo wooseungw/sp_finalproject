@@ -60,7 +60,7 @@ def load_and_index_documents(pdf_directory, text_directory, api_key):
             documents.append(text_document)
     print(f"Loaded {len(documents)} documents from {text_directory}")
     # 분할된 텍스트를 벡터로 변환하여 ChromaDB에 저장
-    chunk_splitter = RecursiveCharacterTextSplitter(chunk_size=1000, chunk_overlap=0)
+    chunk_splitter = RecursiveCharacterTextSplitter(chunk_size=1000, chunk_overlap=200)
     chunks = chunk_splitter.split_documents(documents)
     print(f"Split {len(chunks)} chunks from {len(documents)} documents")
     print("Embedding documents...",end="")
@@ -83,12 +83,17 @@ def pdf_load(dir):
         input_docs.extend(pdf_documents)
         
     return input_docs
-
+        
 def update_prompt(service):
-    prompt = ''' 
-    수업 프롬프트는 여기에 입력
-    
-    ''' if  service == "수업" else '''
+    if service=="학사":
+        file_path="prompt_education_courses.txt"
+        return prompt_load(file_path)
+    elif service=="로드맵":
+        file_path="prompt_major_roadmap.txt"
+        return prompt_load(file_path)
+    elif service=="졸업":
+
+        prompt = '''
     너는 사용자가 강남대학교에서 졸업할 수 있는지 등을 물어보았을때 성실하게 답변해주는 학사지원 인공지능 챗봇이야.
     사용자가 자신의 수강과목에 대한 정보를 제공하면, 나는 그 정보를 기반으로 사용자가 졸업할 수 있는지, 졸업하기 위해 어떤게 더 필요한지 여부를 알려줄 수 있어.
     교육과정표를 보고 앞으로 어떤 과목을 들어야 하는지 알려줄 수 있어.
@@ -164,7 +169,17 @@ pdf_directory = "./data"
 text_directory = "./crawled_texts"
 
 
+
 # Load and index documents from both PDF and text files
+
+
+#Load Prompt from a txt file
+def prompt_load(file_path):
+    file_content=""
+    with open(file_path, 'r', encoding='utf-8') as file:
+        file_content = file.read()
+    return file_content
+
 
 if "OPENAI_API" not in st.session_state:
     st.session_state["OPENAI_API"] = os.getenv("OPENAI_API_KEY") if os.getenv("OPENAI_API_KEY") else ""
@@ -185,12 +200,28 @@ if "previous" not in st.session_state:
 if "current" not in st.session_state:
     st.session_state["current"] = ""
 
-#################################################
+################################################
 if "prompt" not in st.session_state:
-    st.session_state["prompt"] = ''' '''
-    
-#################################################
 
+    if st.session_state["service"] == "졸업":
+        file_path="prompt_graduation.txt"
+        st.session_state["prompt"] = prompt_load(file_path)
+        
+    elif st.session_state["service"] == "학사":
+        file_path="prompt_education_courses.txt"
+        st.session_state["prompt"] = prompt_load(file_path)
+                    
+    elif st.session_state["service"] == "로드맵":
+        file_path="prompt_education_courses.txt"
+        st.session_state["prompt"] = prompt_load(file_path)
+        st.session_state["prompt"] = ''' 
+        로드맵 프롬프트는 여기에 입력
+    
+    '''
+    else:
+        st.session_state["prompt"] = '''
+        서비스가 선택되지 않았습니다.
+    '''    
 if "retriever" not in st.session_state:
     st.session_state.retriever = load_and_index_documents(pdf_directory, text_directory, st.session_state["OPENAI_API"])
     
@@ -205,7 +236,7 @@ if __name__ == '__main__':
         st.session_state["model"] = st.selectbox("모델", options=["gpt-4o", "gpt-3.5-turbo"])
     
         #라디오 버튼을 사용하여 서비스를 선택합니다.
-        st.session_state["service"] = st.radio("서비스", options=["학사", "졸업", "로드맵"])
+        st.session_state["service"] = st.radio("서비스", options=["졸업","학사","로드맵"])
         st.session_state["prompt"] = update_prompt(st.session_state["service"])
         st.write()
         if st.session_state["service"] =="졸업":
@@ -240,11 +271,12 @@ if __name__ == '__main__':
             current = ""
             st.rerun()
             
-            
-    if st.session_state["service"] == "수업":
-        st.title("강남대학교 수업지원 챗봇")
     if st.session_state["service"] == "졸업":
-        st.title("강남대학교 졸업지원 챗봇")
+        st.title("강남대학교 졸업지원 챗봇")       
+    if st.session_state["service"] == "학사":
+        st.title("강남대학교 학사지원 챗봇")
+    if st.session_state["service"] == "로드맵":
+        st.title("강남대학교 로드맵지원 챗봇")
     ###############################
     # Create a sidebar for API key and model selection
     with st.expander("챗봇 사용법", expanded=False):
@@ -253,30 +285,39 @@ if __name__ == '__main__':
                     - 답변 내용은 학사지원 메뉴얼을 기반으로 합니다.
                     """)
     ################# 설정을 위한 사이드바를 생성합니다. 여기서 api키를 받아야 실행됩니다. ##########################################
-
+    
+            
+        
+            
+    
     # Chatbot을 생성합니다.
     chatbot = Chatbot(api_key=st.session_state["OPENAI_API"],
                        retriever=st.session_state.retriever,
                        sys_prompt=st.session_state["prompt"],
                        model_name=st.session_state["model"])
 
+
+
     ############################################ 실제 챗봇을 사용하기 위한 Streamlit 코드 ###################################################
     for content in st.session_state.chat_history:
         with st.chat_message(content["role"]):
             st.markdown(content['message'])    
     ### 사용자의 입력을 출력하고 생성된 답변을 출력합니다.
-    if st.session_state["service"] == "수업":
+
+    ###1.학사지원 서비스 
+    if st.session_state["service"] == "학사":
         if prompt := st.chat_input("질문을 입력하세요."):
             with st.chat_message("user"):
                 st.markdown(prompt)
-                
+            
             with st.chat_message("ai"):
-                
+            
                 response = chatbot.generate(str(st.session_state.chat_history[-2:])+f"\n\n{prompt}")
-                
+            
                 st.write_stream(stream_data(response))
             st.session_state.chat_history.append({"role": "user", "message": prompt})
             st.session_state.chat_history.append({"role": "ai", "message": response})
+            
             
     if st.session_state["service"] == "졸업":
         if prompt := st.chat_input("질문을 입력하세요."):
@@ -294,5 +335,16 @@ if __name__ == '__main__':
             
             st.session_state.chat_history.append({"role": "user", "message": prompt})
             st.session_state.chat_history.append({"role": "ai", "message": response})
-    
-    print(st.session_state["prompt"])
+ 
+    if st.session_state["service"] == "로드맵":
+        if prompt := st.chat_input("질문을 입력하세요."):
+            with st.chat_message("user"):
+                st.markdown(prompt)
+            with st.chat_message("ai"):
+                response = chatbot.generate(str(st.session_state.chat_history[-2:])+f"\n\n{prompt}")
+            
+                st.write_stream(stream_data(response))
+
+            st.session_state.chat_history.append({"role": "user", "message": prompt})
+            st.session_state.chat_history.append({"role": "ai", "message": response})
+        
