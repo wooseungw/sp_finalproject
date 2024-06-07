@@ -5,4 +5,5 @@ current/
 test_data/
 __pycache__/
 web_crawling_links/
-trash_can
+trash_can/
+crawled_text/
