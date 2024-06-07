@@ -118,11 +118,15 @@ if "current" not in st.session_state:
 #################################################
 if "prompt" not in st.session_state:
     st.session_state["prompt"] = ''' 
-    수업 프롬프트는 여기에 입력
+    ...
     
+    바로 직전 대화내용과 질문을 참고해서 답변해줘. \\
+    Previous Chat and Question: {question}
     ''' if  st.session_state["service"] == "수업" else '''
     
-    졸업 프롬프트는 여기에 입력
+
+        바로 직전 대화내용과 질문을 참고해서 답변해줘. \\
+    Previous Chat and Question: {question}
     '''
 #################################################
 
