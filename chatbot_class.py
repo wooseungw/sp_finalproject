@@ -20,7 +20,8 @@ class Chatbot:
         front_prompt = '''
             {context}를 반드시 충분히 이해하고 여기에서 설명해야해. 잘하면 10달러를 줄게.
         '''
-        end_prompt = ''' Question: {question} '''
+        end_prompt = '''     바로 직전 대화내용과 질문을 참고해서 답변해줘. \\
+                            Previous Chat and Question: {question} '''
         
         SYS_PROMPT = front_prompt + sys_prompt + end_prompt
         self.prompt = ChatPromptTemplate.from_template(SYS_PROMPT)

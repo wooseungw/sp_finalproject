@@ -208,9 +208,13 @@ if __name__ == '__main__':
     if prompt := st.chat_input("질문을 입력하세요."):
         with st.chat_message("user"):
             st.markdown(prompt)
-            st.session_state.chat_history.append({"role": "user", "message": prompt})
-
-        with st.chat_message("ai"):                
-            response = chatbot.generate(prompt)
+            
+        with st.chat_message("ai"):
+            
+            
+            response = chatbot.invoke(str(st.session_state.chat_history[-2:])+f"\n\n{prompt}")
+            
             st.write_stream(stream_data(response))
-            st.session_state.chat_history.append({"role": "ai", "message": response})
+            
+    st.session_state.chat_history.append({"role": "user", "message": prompt})
+    st.session_state.chat_history.ap
