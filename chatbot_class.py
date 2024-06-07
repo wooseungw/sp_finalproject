@@ -19,6 +19,8 @@ class Chatbot:
         # 중간은 사용자의 입력을 그대로 전달합니다.
         front_prompt = '''
             {context}를 반드시 충분히 이해하고 여기에서 설명해야해. 잘하면 10달러를 줄게.
+            OOO으로 표시된건 사용자의 입력에서 가져와서 적절하게 계산해야해.
+
         '''
         end_prompt = '''     바로 직전 대화내용과 질문을 참고해서 답변해줘. \\
                             Previous Chat and Question: {question} '''
