@@ -212,7 +212,7 @@ if "prompt" not in st.session_state:
         st.session_state["prompt"] = prompt_load(file_path)
                     
     elif st.session_state["service"] == "로드맵":
-        file_path="prompt_education_courses.txt"
+        file_path="major_roadmap.txt"
         st.session_state["prompt"] = prompt_load(file_path)
         st.session_state["prompt"] = ''' 
         로드맵 프롬프트는 여기에 입력
